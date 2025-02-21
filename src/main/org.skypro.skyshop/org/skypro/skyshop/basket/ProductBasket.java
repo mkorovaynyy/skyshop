@@ -3,7 +3,6 @@ package org.skypro.skyshop.basket;
 import org.skypro.skyshop.product.Product;
 
 public class ProductBasket {
-    // Массив для хранения продуктов (максимум 5 элементов)
     private Product[] products = new Product[5];
 
     // Метод добавления продукта в корзину
@@ -35,12 +34,17 @@ public class ProductBasket {
             return;
         }
 
+        int specialCount = 0;
         for (Product product : products) {
             if (product != null) {
-                System.out.println(product.getName() + ": " + product.getPrice());
+                System.out.println(product);
+                if (product.isSpecial()) {
+                    specialCount++;
+                }
             }
         }
         System.out.println("Итого: " + getTotalCost());
+        System.out.println("Специальных товаров: " + specialCount);
     }
 
     // Метод проверки наличия продукта в корзине по имени
