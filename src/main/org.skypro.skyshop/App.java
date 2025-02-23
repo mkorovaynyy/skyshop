@@ -5,66 +5,52 @@ import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
 import org.skypro.skyshop.product.Product;
+import org.skypro.skyshop.search.Article;
+import org.skypro.skyshop.search.SearchEngine;
+import org.skypro.skyshop.search.Searchable;
+
+import java.util.Arrays;
 
 
 public class App {
     public static void main(String[] args) {
-        // Создаем продукты
-
+// Создаем товары
         Product apple = new SimpleProduct("Яблоко", 50);
         Product bread = new SimpleProduct("Хлеб", 30);
-        Product milk = new DiscountedProduct("Молоко", 80, 10); // Скидка 10%
-        Product cheese = new FixPriceProduct("Сыр"); // Фиксированная цена
-        Product juice = new DiscountedProduct("Сок", 100, 20); // Скидка 20%
+        Product milk = new DiscountedProduct("Молоко", 80, 10);
+        Product cheese = new FixPriceProduct("Сыр");
+        Product juice = new DiscountedProduct("Сок", 100, 20);
 
-        Product apple = new Product("Яблоко", 50);
-        Product bread = new Product("Хлеб", 30);
-        Product milk = new Product("Молоко", 80);
-        Product cheese = new Product("Сыр", 120);
-        Product juice = new Product("Сок", 100);
-        Product chocolate = new Product("Шоколад", 70);
+        // Создаем статьи
+        Article article1 = new Article("Как выбрать яблоки", "Советы по выбору свежих яблок.");
+        Article article2 = new Article("Польза молока", "Почему молоко полезно для здоровья.");
 
+        // Создаем поисковый движок
+        SearchEngine searchEngine = new SearchEngine(10);
 
-        // Создаем корзину
-        ProductBasket basket = new ProductBasket();
+        // Добавляем товары и статьи в поисковый движок
+        searchEngine.add(apple);
+        searchEngine.add(bread);
+        searchEngine.add(milk);
+        searchEngine.add(cheese);
+        searchEngine.add(juice);
+        searchEngine.add(article1);
+        searchEngine.add(article2);
 
-        // Добавляем продукты в корзину
-        basket.addProduct(apple);
-        basket.addProduct(bread);
-        basket.addProduct(milk);
-        basket.addProduct(cheese);
-        basket.addProduct(juice);
+        // Поиск по запросу "яблоко"
+        System.out.println("Результаты поиска по запросу 'яблоко':");
+        Searchable[] results = searchEngine.search("яблоко");
+        System.out.println(Arrays.toString(results));
 
+        // Поиск по запросу "молоко"
+        System.out.println("Результаты поиска по запросу 'молоко':");
+        results = searchEngine.search("молоко");
+        System.out.println(Arrays.toString(results));
 
-        // Попытка добавить продукт в заполненную корзину
-        basket.addProduct(chocolate); // Выведет "Невозможно добавить продукт"
-
-
-        // Печать содержимого корзины
-        System.out.println("Содержимое корзины:");
-        basket.printBasket();
-
-        // Получение общей стоимости корзины
-        System.out.println("Общая стоимость корзины: " + basket.getTotalCost());
-
-        // Поиск товара, который есть в корзине
-        System.out.println("Есть ли в корзине Хлеб? " + basket.containsProduct("Хлеб"));
-
-        // Поиск товара, которого нет в корзине
-        System.out.println("Есть ли в корзине Шоколад? " + basket.containsProduct("Шоколад"));
-
-        // Очистка корзины
-        basket.clearBasket();
-
-        // Печать содержимого пустой корзины
-        System.out.println("Содержимое корзины после очистки:");
-        basket.printBasket();
-
-        // Получение стоимости пустой корзины
-        System.out.println("Общая стоимость пустой корзины: " + basket.getTotalCost());
-
-        // Поиск товара по имени в пустой корзине
-        System.out.println("Есть ли в корзине Яблоко? " + basket.containsProduct("Яблоко"));
+        // Поиск по запросу "сыр"
+        System.out.println("Результаты поиска по запросу 'сыр':");
+        results = searchEngine.search("сыр");
+        System.out.println(Arrays.toString(results));
     }
 }
 
