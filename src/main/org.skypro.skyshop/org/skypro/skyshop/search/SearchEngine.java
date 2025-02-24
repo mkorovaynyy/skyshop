@@ -2,10 +2,7 @@ package org.skypro.skyshop.search;
 
 import org.skypro.skyshop.exception.BestResultNotFound;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class SearchEngine {
     private List<Searchable> searchables = new ArrayList<>();
@@ -17,7 +14,12 @@ public class SearchEngine {
 
     // Метод поиска всех подходящих результатов
     public Map<String, Searchable> search(String query) {
-        Map<String, Searchable> results = new TreeMap<>();
+        // Компаратор для сортировки по длине имени (от самого длинного к самому короткому)
+        Comparator<String> lengthComparator = Comparator
+                .<String>comparingInt(String::length)
+                .reversed()
+                .thenComparing(Comparator.naturalOrder()); // Если длины равны, сортируем по алфавит
+        Map<String, Searchable> results = new TreeMap<>(lengthComparator);
         for (Searchable searchable : searchables) {
             if (searchable.getSearchTerm().toLowerCase().contains(query.toLowerCase())) {
                 results.put(searchable.getName(), searchable);
