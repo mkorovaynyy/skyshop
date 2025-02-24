@@ -36,11 +36,11 @@ public class Article implements Searchable {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Article article = (Article) o;
-        return Objects.equals(title, article.title) && Objects.equals(text, article.text);
+        return Objects.equals(title, article.title);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, text);
+        return Objects.hashCode(title);
     }
 }
