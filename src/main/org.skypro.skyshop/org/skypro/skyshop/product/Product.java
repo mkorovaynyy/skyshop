@@ -4,7 +4,7 @@ import org.skypro.skyshop.search.Searchable;
 
 import java.util.Objects;
 
-public abstract class Product implements Searchable {
+public abstract class Product implements Searchable{
     private String name;
 
     public Product(String name) {
@@ -46,4 +46,5 @@ public abstract class Product implements Searchable {
     public int hashCode() {
         return Objects.hashCode(name);
     }
+
 }

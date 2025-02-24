@@ -10,7 +10,8 @@ import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
 
 import java.util.List;
-import java.util.Map;
+
+import java.util.Set;
 
 
 public class App {
@@ -41,18 +42,18 @@ public class App {
 
             // Поиск по запросу "яблоко"
             System.out.println("Результаты поиска по запросу 'яблоко':");
-            Map<String, Searchable> results = searchEngine.search("яблоко");
-            results.forEach((name, searchable) -> System.out.println(searchable.getStringRepresentation()));
+            Set<Searchable> results = searchEngine.search("яблоко");
+            results.forEach(searchable -> System.out.println(searchable.getName()));
 
             // Поиск по запросу "молоко"
             System.out.println("Результаты поиска по запросу 'молоко':");
             results = searchEngine.search("молоко");
-            results.forEach((name, searchable) -> System.out.println(searchable.getStringRepresentation()));
+            results.forEach(searchable -> System.out.println(searchable.getName()));
 
             // Поиск по запросу "сыр"
             System.out.println("Результаты поиска по запросу 'сыр':");
             results = searchEngine.search("сыр");
-            results.forEach((name, searchable) -> System.out.println(searchable.getStringRepresentation()));
+            results.forEach(searchable -> System.out.println(searchable.getName()));
 
             // Поиск лучшего результата
             try {

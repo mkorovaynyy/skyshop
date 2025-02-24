@@ -5,7 +5,7 @@ import org.skypro.skyshop.exception.BestResultNotFound;
 import java.util.*;
 
 public class SearchEngine {
-    private List<Searchable> searchables = new ArrayList<>();
+    private Set<Searchable> searchables = new HashSet<>();
 
     // Метод добавления объекта в поисковый движок
     public void add(Searchable searchable) {
@@ -13,19 +13,14 @@ public class SearchEngine {
     }
 
     // Метод поиска всех подходящих результатов
-    public Map<String, Searchable> search(String query) {
-        // Компаратор для сортировки по длине имени (от самого длинного к самому короткому)
-        Comparator<String> lengthComparator = Comparator
-                .<String>comparingInt(String::length)
-                .reversed()
-                .thenComparing(Comparator.naturalOrder()); // Если длины равны, сортируем по алфавит
-        Map<String, Searchable> results = new TreeMap<>(lengthComparator);
+    public Set<Searchable> search(String query) {
+        Set<Searchable> result = new TreeSet<>(new SearchableComparator());
         for (Searchable searchable : searchables) {
             if (searchable.getSearchTerm().toLowerCase().contains(query.toLowerCase())) {
-                results.put(searchable.getName(), searchable);
+                result.add(searchable);
             }
         }
-        return results;
+        return result;
     }
 
     // Метод поиска самого подходящего элемента
