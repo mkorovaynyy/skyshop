@@ -9,12 +9,14 @@ import org.skypro.skyshop.search.Article;
 import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
 
-import java.util.Arrays;
 import java.util.List;
+
+import java.util.Set;
 
 
 public class App {
     public static void main(String[] args) {
+        // Создаем товары
         try {
             Product apple = new SimpleProduct("Яблоко", 50);
             Product bread = new SimpleProduct("Хлеб", 30);
@@ -40,18 +42,18 @@ public class App {
 
             // Поиск по запросу "яблоко"
             System.out.println("Результаты поиска по запросу 'яблоко':");
-            List<Searchable> results = searchEngine.search("яблоко");
-            results.forEach(result -> System.out.println(result.getStringRepresentation()));
+            Set<Searchable> results = searchEngine.search("яблоко");
+            results.forEach(searchable -> System.out.println(searchable.getName()));
 
             // Поиск по запросу "молоко"
             System.out.println("Результаты поиска по запросу 'молоко':");
             results = searchEngine.search("молоко");
-            results.forEach(result -> System.out.println(result.getStringRepresentation()));
+            results.forEach(searchable -> System.out.println(searchable.getName()));
 
             // Поиск по запросу "сыр"
             System.out.println("Результаты поиска по запросу 'сыр':");
             results = searchEngine.search("сыр");
-            results.forEach(result -> System.out.println(result.getStringRepresentation()));
+            results.forEach(searchable -> System.out.println(searchable.getName()));
 
             // Поиск лучшего результата
             try {

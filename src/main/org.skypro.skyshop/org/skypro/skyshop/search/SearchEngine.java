@@ -2,11 +2,10 @@ package org.skypro.skyshop.search;
 
 import org.skypro.skyshop.exception.BestResultNotFound;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class SearchEngine {
-    private List<Searchable> searchables = new ArrayList<>();
+    private Set<Searchable> searchables = new HashSet<>();
 
     // Метод добавления объекта в поисковый движок
     public void add(Searchable searchable) {
@@ -14,14 +13,14 @@ public class SearchEngine {
     }
 
     // Метод поиска всех подходящих результатов
-    public List<Searchable> search(String query) {
-        List<Searchable> results = new ArrayList<>();
+    public Set<Searchable> search(String query) {
+        Set<Searchable> result = new TreeSet<>(new SearchableComparator());
         for (Searchable searchable : searchables) {
             if (searchable.getSearchTerm().toLowerCase().contains(query.toLowerCase())) {
-                results.add(searchable);
+                result.add(searchable);
             }
         }
-        return results;
+        return result;
     }
 
     // Метод поиска самого подходящего элемента
