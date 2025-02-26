@@ -12,16 +12,14 @@ public class ProductBasket {
         productsMap.computeIfAbsent(product.getName(), k -> new ArrayList<>()).add(product);
     }
 
+
     // Метод получения общей стоимости корзины
     public int getTotalCost() {
-        int totalCost = 0;
-        for (List<Product> products : productsMap.values()) {
-            for (Product product : products) {
-                totalCost += product.getPrice();
-            }
-        }
-        return totalCost;
+        return productsMap.values().stream().flatMap(List::stream)
+                .mapToInt(Product::getPrice)
+                .sum();
     }
+
 
     // Метод печати содержимого корзины
     public void printBasket() {
@@ -30,15 +28,12 @@ public class ProductBasket {
             return;
         }
 
-        int specialCount = 0;
-        for (List<Product> products : productsMap.values()) {
-            for (Product product : products) {
-                System.out.println(product);
-                if (product.isSpecial()) {
-                    specialCount++;
-                }
-            }
-        }
+        int specialCount = productsMap.values().stream()
+                .flatMap(List::stream)
+                .peek(System.out::println)
+                .filter(Product::isSpecial)
+                .mapToInt(product -> 1)
+                .sum();
         System.out.println("Итого: " + getTotalCost());
         System.out.println("Специальных товаров: " + specialCount);
     }
